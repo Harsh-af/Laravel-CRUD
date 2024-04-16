@@ -4,30 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Player;
+use App\Http\Requests\StoreRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller
 {
     public function index()
     {
-        $players= Player::all();
+        $players = Player::all();
         return view('player.index', compact('players'));
     }
 
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'age' => 'required|integer',
-            'position' => 'required|string',
-        ]);
-
-        $player = new Player();
-        $player->name = $request->name;
-        $player->age = $request->age;
-        $player->position = $request->position;
-        $player->save();
-
+        Player::savePlayerData($request);
         return redirect()->route('player_index')->with('success', 'Player created successfully.');
     }
 
@@ -58,18 +50,26 @@ class PlayerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $player = Player::find($id);
+        Player::updatePlayerData($request, $id);
         
-        if (!$player) {
-            return redirect(url('/'))->withErrors('Record not found...');
-        }
-
-        $player->name = $request->input('name');
-        $player->age = $request->input('age');
-        $player->position = $request->input('position');
-        $player->save();
-     
-
         return redirect(url('/'))->with('success', 'Record updated successfully!')->with('showSuccess', true);
+    }
+
+
+
+    public function showLoginForm()
+    {
+        return view('login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/');
+        } else {
+            return back()->withErrors(['email' => 'Invalid credentials']);
+        }
     }
 }

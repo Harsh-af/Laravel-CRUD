@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerController;
+// use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,19 +14,12 @@ use App\Http\Controllers\PlayerController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/player', function () {
-//     return view('playerinfo');
-// });
-
-
-
 Route::get('/', [PlayerController::class, 'index'])->name('player_index');
 Route::post('/players', [PlayerController::class, 'store'])->name('players_store');
 Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players_destroy');
 
 Route::get('/players/edit/{id}', [PlayerController::class, 'edit'])->name('players_edit');
 Route::put('/players/update/{id}', [PlayerController::class, 'update'])->name('players_update');
+
+Route::get('/login', [PlayerController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [PlayerController::class, 'login']); 

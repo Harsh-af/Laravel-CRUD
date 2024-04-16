@@ -5,7 +5,10 @@
     <title>Edit Record</title>
     <style>
         body {
-                font-family: 'Nunito', sans-serif;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                background-color: #0a0927;
+                color: #f7f7f7;
+                font-weight: 900;
             }
         .top {
             display: flex;
@@ -22,17 +25,21 @@
         }
         .record{
             font-size: 20px; 
+            font-weight: 100;
+            color: #f0f0f0;
             margin-left: 30px; 
             margin-top: 20px; 
             border: 1px solid grey; 
             border-radius: 50px; 
             padding: 10px 20px;
+            border: none;
+            background-color: #201f47;
         }
         .home-button{
-            font-size: 20px; margin-left: 10px; color: #1338BE; border-radius: 50px; border: 1px solid #1338BE; background-color: white;    font-size: 17px; font-weight:bolder; text-decoration: none; margin-top: 35px; padding: 10px 20px; margin-left: 70px
+            font-size: 20px; margin-left: 10px; color: #f7f7f7; border-radius: 50px; background-color: #201f47;    font-size: 17px; font-weight:bolder; text-decoration: none; margin-top: 35px; padding: 10px 20px; margin-left: 70px
         }
         .update-button{
-            font-weight: bold; opacity: 0.5; cursor: pointer; font-size: 20px; margin-left: 10px; margin-top: 35px; background-color: #1338BE; border-radius: 50px; border: none; color: white; padding: 10px 20px; font-size: 17px; font-weight:bolder
+            font-weight: bold; opacity: 0.5; cursor: pointer; font-size: 20px; margin-left: 10px; margin-top: 35px; color: #f7f7f7; background: linear-gradient(135deg, #154284, #A50044); border-radius: 50px; border: none; padding: 10px 20px; font-size: 17px; font-weight:bolder
         }
     </style>
     <script>
@@ -43,16 +50,19 @@
             if (form.checkValidity()) {
                 updateButton.disabled = false;
                 updateButton.style.opacity = 1;
+            updateButton.style.cursor = pointer;
             } else {
                 updateButton.disabled = true;
-                updateButton.style.opacity = 0.5;
+                updateButton.style.opacity = 0.1;
             }
         }
 
         function enableUpdateButton() {
             var updateButton = document.getElementById('updateButton');
+            updateButton.style.display = 'block'; 
             updateButton.disabled = false;
             updateButton.style.opacity = 1;
+            updateButton.style.cursor = pointer;
         }
     </script>
 </head>
@@ -66,30 +76,30 @@
             @csrf
             @method('PUT')
             <div>
-                <label class="data" for="メール">Name :</label>
-                <input class="record" type="text" name="email" value="{{ $player->name }}" readonly>
+                <label class="data" for="name">Name :</label>
+                <input class="record" style="margin-left: 50px;" type="text" name="name" value="{{ $player->name }}">
             </div>
             <div>
-                <label class="data" for="タイトル">Position:</label>
-                <input class="record" type="text" name="title" value="{{ $player->position }}" onchange="enableUpdateButton()">
+                <label class="data" for="age">Age:</label>
+                <input class="record" style="margin-left: 70px;" type="number" name="age" value="{{ $player->age }}" onchange="enableUpdateButton()">
             </div>
             <div>
-                <label class="data" for="氏名">Age:</label>
-                <input class="record" type="text" name="name" value="{{ $player->age }}" onchange="enableUpdateButton()">
+                <label class="data" for="position">Position:</label>
+                <input class="record" type="text" name="position" value="{{ $player->position }}" onchange="enableUpdateButton()">
             </div>
             <div style="display: flex; flex-direction: row">
                 <a href="{{ url('/') }}" class="home-button">Home</a>
-                <button id="updateButton" class="update-button" type="submit" disabled>アップデート</button>
+                <button id="updateButton" class="update-button" type="submit" disabled>Update</button>
             </div>
         </form>
         <br>
     </div>
 
-    <script>
+    <!-- <script>
         function enableUpdateButton() {
             var updateButton = document.getElementById('updateButton');
             updateButton.style.display = 'block'; 
         }
-    </script>
+    </script> -->
 </body>
 </html>
