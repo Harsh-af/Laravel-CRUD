@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayersTable extends Migration
+class CreatePlayerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class CreatePlayersTable extends Migration
     public function up()
     {
         Schema::create('player', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
             $table->integer('age');
             $table->string('position');
+            $table->timestamps();
         });
     }
 
