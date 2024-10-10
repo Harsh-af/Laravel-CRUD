@@ -14,8 +14,6 @@ use App\Http\Controllers\PlayerController;
 |
 */
 
-//this is just a work-branch commit test
-
 Route::get('/', [PlayerController::class, 'index'])->name('player_index');
 Route::post('/players', [PlayerController::class, 'store'])->name('players_store');
 Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players_destroy');

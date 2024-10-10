@@ -116,10 +116,10 @@
                         <td>{{ $player->position }}</td>
                         <td>
                             <div style="display: flex;">
-                                <form action="{{ route('players_destroy', $player->id) }}" method="post">
+                                <form action="{{ route('players_destroy', $player->id) }}" method="post" id="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" style="border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 900; color: #f7f7f7; background: linear-gradient(135deg, #154284, #A50044); ">Delete</button>
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this player?');" style="border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 900; color: #f7f7f7; background: linear-gradient(135deg, #154284, #A50044); ">Delete</button>
                                 </form>
                                 <form action="{{ route('players_edit', $player->id) }}" method="get"  style="display: inline;">
                                     <button type="submit" style="border-radius: 50px; font-family: 'Nunito', sans-serif; font-weight: 900; color: #f7f7f7; margin-left: 10px; background: linear-gradient(135deg, #154284, #A50044); ">Edit</button>
